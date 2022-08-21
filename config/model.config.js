@@ -5,11 +5,11 @@ const db = {};
 
 const sequelize = new Sequelize(
   {
-    host: 'x2znkdjaaakv.us-east-2.psdb.cloud',
+    host: process.env.HOSTDB,
     dialect: "mysql",
-    username: 'e1dv8cjyf1vm',
-    database: 'atenea-hackaton1',
-    password: 'pscale_pw_IyFW7JiL884-VuGDCm9qRCHOeSzcwRpC05rBam-LnxY',
+    username: process.env.USERDB,
+    database: process.env.DB,
+    password: process.env.PASSWORDDB,
     dialectOptions: {
        ssl: {
           required: true,
