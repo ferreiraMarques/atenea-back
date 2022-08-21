@@ -1,10 +1,11 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
     const Question = sequelize.define("question", {
-        question:{
-            type: DataTypes.STRING
-        },
         answer:{
-            type: DataTypes.STRING
+            type: Sequelize.STRING
+        },
+        correct:{
+            type: Sequelize.BOOLEAN,
+            defaultValue: false,
         }
     });
     return Question;

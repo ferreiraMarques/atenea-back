@@ -1,29 +1,28 @@
 const db = require("../../config/model.config");
-const Question = db.questions;
-const Category = db.categories;
+const QuizResult = db.quizResult;
+const Quiz = db.quiz;
 
-exports.createQuestion = async(req, res) => {
+exports.createQuiz = async(req, res) => {
   const id = req.params.id;
   const obj = {
-    answer: req.body.answer,
-    correct: req.body.correct,
-    categoriaId: id,
+    name: req.body.name,
+    value: req.body.value,
+    quizId: id
   }
   try{
-      await Question.create(obj);
+      await QuizResult.create(obj);
       res.status(201).json({ message: 'Pregunta creada satisfactoriamente!' });
   }catch(err){
       res.status(400).json({ message: err.message });
   }
 };
 
-exports.showQuestion = async(req, res) => {
+exports.showQuiz = async(req, res) => {
   try{
-      const data = await Question.findAll({
+      const data = await Quiz.findAll({
         include: [
           {
-            model: Category,
-            as: "categorias"
+            model: Course
           }
         ]
       });
@@ -49,5 +48,3 @@ exports.showQuestionById = async(req, res) => {
       res.status(400).json({ message: err.message });
   }
 };
-
-

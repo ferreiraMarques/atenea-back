@@ -1,29 +1,29 @@
 const db = require("../../config/model.config");
-const Question = db.questions;
-const Category = db.categories;
+const Course = db.course;
+const Quiz = db.quiz;
 
-exports.createQuestion = async(req, res) => {
-  const id = req.params.id;
+exports.createQuiz = async(req, res) => {
+  const idProfile = req.params.idProfile;
+  const idCourse = req.params.idCourse;
   const obj = {
-    answer: req.body.answer,
-    correct: req.body.correct,
-    categoriaId: id,
+    name: req.body.name,
+    profileId: idProfile,
+    courseId: idCourse,
   }
   try{
-      await Question.create(obj);
+      await Quiz.create(obj);
       res.status(201).json({ message: 'Pregunta creada satisfactoriamente!' });
   }catch(err){
       res.status(400).json({ message: err.message });
   }
 };
 
-exports.showQuestion = async(req, res) => {
+exports.showQuiz = async(req, res) => {
   try{
-      const data = await Question.findAll({
+      const data = await Quiz.findAll({
         include: [
           {
-            model: Category,
-            as: "categorias"
+            model: Course
           }
         ]
       });
@@ -33,14 +33,13 @@ exports.showQuestion = async(req, res) => {
   }
 };
 
-exports.showQuestionById = async(req, res) => {
+exports.showQuizById = async(req, res) => {
   const id = req.params.id;
   try{
-      const data = await Category.findByPk(id, {
+      const data = await Quiz.findByPk(id, {
         include: [
           {
-            model: Question,
-            as: "question"
+            model: Course
           }
         ]
       })
