@@ -8,6 +8,7 @@ exports.createProfile = async(req, res) => {
     first_name: req.body.first_name,
     last_name: req.body.last_name,
     direction: req.body.direction,
+    phone: req.body.phone,
     userId: id,
   }
   try{
